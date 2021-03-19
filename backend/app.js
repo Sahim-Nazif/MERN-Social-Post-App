@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const postRoutes = require('./routes/post')
 const mongoose = require('mongoose')
 const expressValidator=require('express-validator')
+const userRoutes=require('./routes/auth')
 
 
 
@@ -38,6 +39,7 @@ mongoose
 
 
 app.use('/post', postRoutes)
+app.use('/user', userRoutes)
 
 
 app.listen(process.env.PORT, () => {

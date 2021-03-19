@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const uuidv1 = require('uuid').v4
-const crypto=require('crypto')
+const crypto = require('crypto')
 const userSchema = new mongoose.Schema({
 
 
@@ -40,14 +40,14 @@ userSchema.virtual('password')
         return this._password
     })
 
-userSchema.methods={
+userSchema.methods = {
 
-    encryptPassword:function(password){
+    encryptPassword: function (password) {
         if (!password) return '';
         try {
             return crypto.createHmac('sha1', this.salt)
-                            .update(password)
-                            .digest('hex')
+                .update(password)
+                .digest('hex')
         } catch (error) {
             return ''
         }
