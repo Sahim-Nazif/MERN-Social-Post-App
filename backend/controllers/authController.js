@@ -41,6 +41,14 @@ const signin=(req, res)=>{
     
 }
 
+
+const sign_out=(req, res)=>{
+
+    res.clearCookie('t')
+    return res.json({message:'You are signed out'})
+}
 module.exports={
-    signup
+    signup,
+    signin, 
+    sign_out
 }
