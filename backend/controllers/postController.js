@@ -1,4 +1,4 @@
-
+const Post=require("../models/post")
 
 
 const getPosts=(req, res)=>{
@@ -7,7 +7,23 @@ const getPosts=(req, res)=>{
 }
 
 
+const createPost=(req, res)=>{
+
+    const post=new Post(req.body)
+
+    post.save((err, result)=>{
+
+        if (err){
+            res.status(400).json({error:'Could not create post'})
+        }
+        res.status(200).json({post:result});
+    })
+
+   
+}
+
 module.exports={
 
-    getPosts
+    getPosts,
+    createPost
 }
