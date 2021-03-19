@@ -4,15 +4,14 @@ const dotenv = require('dotenv')
 const morgan = require('morgan');
 const postRoutes = require('./routes/post')
 const mongoose = require('mongoose')
+const expressValidator=require('express-validator')
 
 
 
 
 
 dotenv.config()
-app.use(express.json())
 
-app.use(express.urlencoded({extended:true}))
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'))
     console.log('the app is in development phase')
@@ -36,6 +35,11 @@ mongoose
 
 
 app.use('/post', postRoutes)
+
+app.use(express.json())
+
+app.use(express.urlencoded({extended:true}))
+app.use(expressValidator())
 app.listen(process.env.PORT, () => {
 
     console.log(`The app is running in ${process.env.NODE_ENV} mode on port ${process.env.PORT}`)
