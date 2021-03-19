@@ -33,6 +33,7 @@ mongoose
     .catch(err => console.log(err));
 
 
+app.use('/post', postRoutes)
 app.listen(process.env.PORT, () => {
 
     console.log(`The app is running in ${process.env.NODE_ENV} mode on port ${process.env.PORT}`)
