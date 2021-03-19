@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         trim: true,
+        unique:true,
         required: true
     },
     hashed_password: {
@@ -41,7 +42,9 @@ userSchema.virtual('password')
     })
 
 userSchema.methods = {
-
+    authenticate: function(plainText) {
+        return this.encryptPassword(plainText)===this.hashed_password
+    },
     encryptPassword: function (password) {
         if (!password) return '';
         try {

@@ -6,6 +6,7 @@ const postRoutes = require('./routes/post')
 const mongoose = require('mongoose')
 const expressValidator=require('express-validator')
 const userRoutes=require('./routes/auth')
+const cookieParser=require('cookie-parser')
 
 
 
@@ -16,6 +17,7 @@ app.use(express.json())
 
 app.use(express.urlencoded({extended:true}))
 app.use(expressValidator())
+app.use(cookieParser())
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'))
     console.log('the app is in development phase')
