@@ -19,7 +19,8 @@ const postSchema = new mongoose.Schema({
     photo:{
 
         data:Buffer,
-        
+        contentType:String
+
 
     },
     posteBy:{

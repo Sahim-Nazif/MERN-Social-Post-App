@@ -1,16 +1,8 @@
 const Post = require("../models/post")
+const formidable=require('formidable')
+const fs=require('fs')
 
 
-const getPosts = async (req, res) => {
-
-    const posts = await Post.find().select('_id title body')
-        .then(posts => {
-            res.json({posts})
-        })
-        .catch(err=>{
-            res.status(400).json({error:err})
-        })
-}
 
 
 const createPost = (req, res) => {
@@ -23,6 +15,37 @@ const createPost = (req, res) => {
         })
 
 
+}
+
+
+
+const getPosts = async (req, res,next) => {
+
+    const form=new formidable.IncomingForm()
+
+    form.keepExtensions=true
+    form.parse(req, (err, fields,files)=>{
+
+        if (err){
+
+            return res.status(400).json({error:'Image could not be uploaded'})
+        }
+        const post= new Post(fields)
+        post.postedBy=req.profile
+        if (files.photo){
+
+            post.photo.data=fs.readFileSync(files.photo.path)
+            post.photo.contentType=file.photo.type
+        }
+        post.save((err, result)=>{
+            if (err){
+                return res.status(400).json({error:err})
+            }
+            res.json(result)
+        })
+    })
+
+   
 }
 
 module.exports = {
