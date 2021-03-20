@@ -23,7 +23,7 @@ const postSchema = new mongoose.Schema({
 
 
     },
-    posteBy:{
+    postedBy:{
         type:ObjectId,
         ref:"User"
     },
