@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+const {ObjectId}= mongoose.Schema
 const postSchema = new mongoose.Schema({
 
     title: {
@@ -15,6 +15,20 @@ const postSchema = new mongoose.Schema({
         minLength: 10,
         maxLength: 2000,
 
+    },
+    photo:{
+
+        data:Buffer,
+        
+
+    },
+    posteBy:{
+        type:ObjectId,
+        ref:"User"
+    },
+    created:{
+        type:Date,
+        default:Date.now
     }
 
 
