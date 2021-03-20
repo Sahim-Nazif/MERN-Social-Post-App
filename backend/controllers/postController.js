@@ -1,7 +1,7 @@
 const Post = require("../models/post")
 const formidable = require('formidable')
 const fs = require('fs')
-
+const _ = require('lodash')
 
 
 
@@ -89,10 +89,14 @@ const post_by_id=(req, res, next, id)=>{
 }
 
 
-const isPoster=(req, res)=>{
+const isPoster=(req, res,next)=>{
 
-    const isPoster=req.post && req.auth && req.post.postedBy._id===req.auth._id
+    let isPoster=req.post && req.auth && req.post.postedBy._id==req.auth._id
 
+    //  console.log(isPoster)
+    //  console.log(req.auth)
+    //  console.log(req.auth._id)
+    //  console.log( req.post.postedBy._id)
     if (!isPoster){
         return res.status(403).json({error:'User is not authorized'})
     }
@@ -100,7 +104,22 @@ const isPoster=(req, res)=>{
     next()
 }
 
+//update post
 
+const update_post=(req, res)=>{
+
+    const post=req.post
+    post=_.extend(post, req.body)
+    post.update=Date.now()
+    post.save(err=>{
+        if (err){
+
+            return res.status(400).json({error:err})
+        }
+
+        res.json(post)
+    })
+}
 const deletePost=(req, res)=>{
 
     const post=req.post
@@ -122,5 +141,6 @@ module.exports = {
     posts_by_user,
     post_by_id,
     isPoster,
-    deletePost
+    deletePost,
+    update_post
 }
