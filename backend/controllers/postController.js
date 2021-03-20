@@ -108,9 +108,9 @@ const isPoster=(req, res,next)=>{
 
 const update_post=(req, res)=>{
 
-    const post=req.post
-    post=_.extend(post, req.body)
-    post.update=Date.now()
+    let post=req.post
+    post = _.extend(post, req.body)
+    post.updated=Date.now()
     post.save(err=>{
         if (err){
 
@@ -120,6 +120,8 @@ const update_post=(req, res)=>{
         res.json(post)
     })
 }
+
+
 const deletePost=(req, res)=>{
 
     const post=req.post

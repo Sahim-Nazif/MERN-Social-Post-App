@@ -8,7 +8,7 @@ const expressValidator=require('express-validator')
 const authRoutes=require('./routes/auth')
 const userRoutes=require('./routes/user')
 const cookieParser=require('cookie-parser')
-
+const cors=require('cors')
 
 
 
@@ -19,6 +19,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(expressValidator())
 app.use(cookieParser())
+app.use(cors())
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'))
     console.log('the app is in development phase')
