@@ -88,10 +88,39 @@ const post_by_id=(req, res, next, id)=>{
         })
 }
 
+
+const isPoster=(req, res)=>{
+
+    const isPoster=req.post && req.auth && req.post.postedBy._id===req.auth._id
+
+    if (!isPoster){
+        return res.status(403).json({error:'User is not authorized'})
+    }
+
+    next()
+}
+
+
+const deletePost=(req, res)=>{
+
+    const post=req.post
+    post.remove((err, post)=>{
+
+        if (err){
+            return res.status(400).json({error:err})
+        }
+
+        res.json({message:'Post deleted successfully'})
+    })
+}
+
+
 module.exports = {
 
     getPosts,
     createPost,
     posts_by_user,
-    post_by_id
+    post_by_id,
+    isPoster,
+    deletePost
 }
