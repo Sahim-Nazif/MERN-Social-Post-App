@@ -5,7 +5,8 @@ const morgan = require('morgan');
 const postRoutes = require('./routes/post')
 const mongoose = require('mongoose')
 const expressValidator=require('express-validator')
-const userRoutes=require('./routes/auth')
+const authRoutes=require('./routes/auth')
+const userRoutes=require('./routes/user')
 const cookieParser=require('cookie-parser')
 
 
@@ -41,8 +42,15 @@ mongoose
 
 
 app.use('/post', postRoutes)
+app.use('/auth', authRoutes)
 app.use('/user', userRoutes)
 
+app.use((err,req,res, next)=>{
+
+    if (err.name==='UnauthorizedError') {
+        res.status(401).json({error:'Unauthroized!'})
+    }
+})
 
 app.listen(process.env.PORT, () => {
 
