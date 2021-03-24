@@ -106,12 +106,12 @@ const isPoster=(req, res,next)=>{
 
 //update post
 
-const update_post=(req, res)=>{
+const update_post= async(req, res)=>{
 
     let post=req.post
     post = _.extend(post, req.body)
     post.updated=Date.now()
-    post.save(err=>{
+    await post.save(err=>{
         if (err){
 
             return res.status(400).json({error:err})
