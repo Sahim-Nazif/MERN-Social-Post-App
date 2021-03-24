@@ -7,7 +7,7 @@ const ProfileTabs = (props) =>  (
         <>
         <div className='row'>
             <div className='col-md-4'>
-                <h5 className='text-info'>Followers</h5>
+                <h5 className='text-primary'>Followers</h5>
                 <hr/>
                 {props.followers.map((person, index)=>{
                     return (
