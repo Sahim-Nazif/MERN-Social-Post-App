@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { findPeople } from '../user/apiUser'
+import { findPeople,follow } from '../user/apiUser'
 import { Link } from 'react-router-dom'
 import DefaultProfile from '../images/Avatar.png'
 import { isAuthenticated } from '../auth/index'
@@ -7,16 +7,19 @@ import { isAuthenticated } from '../auth/index'
 const FindPeople = () => {
 
     const [values, setValues] = useState({
-        users: []
+        users: [],
+        error:'',
+        open:false
     })
 
 
     const { users } = values
-    const userId=isAuthenticated().user._id
-    const token=isAuthenticated().user.token
-    c
-    const init = (userId, token) => {
-        findPeople().then(data => {
+ 
+    
+    const init = () => {
+        const userId=isAuthenticated().user._id
+        const token=isAuthenticated().token
+        findPeople(userId, token).then(data => {
             if (data.error) {
                 console.log(data.error)
             } else {
@@ -26,11 +29,33 @@ const FindPeople = () => {
         })
     }
 
+    const clickFollow=(user, index)=>{
+
+          const userId=isAuthenticated().user._id
+          const token=isAuthenticated().token
+
+          follow(userId, token,user._id)
+            .then(data=>{
+                if (data.error) {
+                    setValues({error:data.error})
+                }
+                else{
+                    let toFollow=values.users
+
+                    toFollow.splice(index,1)
+                    setValues({users:toFollow, open:true, followMessage:`Following ${user.name}`})
+                }
+            })
+          
+        }
+
+
 
     useEffect(() => {
         init();
     }, [])
 
+    const {open, followMessage}= values
     const displayUsers = () => (
 
         <div className='row'>
@@ -49,7 +74,9 @@ const FindPeople = () => {
 
                             )}
                              
-
+                            <button onClick={()=>clickFollow(user, index)} className='btn btn-raised btn-success float-right btn-sm'>
+                                Follow
+                            </button>
                         </div>
                     </div>
 
@@ -59,11 +86,17 @@ const FindPeople = () => {
 
     )
     return (
-
+    
         <div className='container'>
-            <h2 className='mt-5 mb-5'>Users</h2>
-            <p>Login to view details about the users</p>
+            <h2 className='mt-5 mb-5'>Find People</h2>
+            <p>Here is a list of people suggested to follow</p>
 
+          
+              {open && (
+
+                <div className='alert alert-success'>{open && <p>{followMessage}</p>}</div> 
+              )}
+       
             {displayUsers()}
         </div>
     );

@@ -7,6 +7,7 @@ import Menu from './core/Menu'
 import Profile from './user/Profile'
 import Users from './user/Users'
 import UpdateProfile from './user/UpdateProfile'
+import FindPeople from './user/FindPeople'
 import PrivateRoute from './auth/privateRoutes'
 
 const MainRouter = () => {
@@ -15,6 +16,7 @@ const MainRouter = () => {
             <Menu/>
             <Switch>
             <PrivateRoute path="/user/update/:userId" exact component={UpdateProfile}/>
+            <PrivateRoute path="/findpeople" exact component={FindPeople}/>
             <Route path="/users" exact component={Users}/>
             <Route path="/signup" exact component={Signup}/>
             <Route path='/signin' exact component={Signin}/>

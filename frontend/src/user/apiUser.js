@@ -129,7 +129,7 @@ export const  unfollow=(userId, token, unfollowId)=>{
 }
 
 
-export const  findPeople=(userId, token)=>{
+export const findPeople=(userId, token)=>{
 
     return fetch (`http://localhost:8000/user/findpeople/${userId}`, {
 
