@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { isAuthenticated,signout } from '../auth/index'
+import { isAuthenticated, signout } from '../auth/index'
 
 const isActive = (history, path) => {
 
@@ -38,30 +38,40 @@ const Menu = ({ history }) => {
                 )}
                 {isAuthenticated() && (
                     <>
-                    
-                    <li className='nav-item'  >
 
-                    <a className='nav-link'  >
-                            <Link to={`/findpeople` }
-                             style={isActive(history, `/findpeople`)}>
-                                 Find People
+                        <li className='nav-item'  >
+
+                            <a className='nav-link'  >
+                                <Link to={`/findpeople`}
+                                    style={isActive(history, `/findpeople`)}>
+                                    Find People
                             </Link>
                             </a>
-                            </li>
-                            <li className='nav-item'  >
-                        <a className='nav-link'  >
-                            <Link to={`/user/${isAuthenticated().user._id}` }
-                             style={isActive(history, `/user/${isAuthenticated().user._id}`)}>
-                            {`${isAuthenticated().user.name}'s profile`}
-                            </Link>
+                        </li>
+
+                        <li className='nav-item'  >
+
+                            <a className='nav-link'  >
+                                <Link to={`/post/create`}
+                                    style={isActive(history, `/post/create`)}>
+                                    Create Post
+        </Link>
                             </a>
-                    
-                    </li>
-                    <li className='nav-item'>
-                        <span className='nav-link'
-                            style={isActive(history, '/signout'), { cursor: 'pointer', color: '#fff' }}
-                            onClick={() => signout(() => history.push('/'))}>Sign out</span>
-                    </li>
+                        </li>
+                        <li className='nav-item'  >
+                            <a className='nav-link'  >
+                                <Link to={`/user/${isAuthenticated().user._id}`}
+                                    style={isActive(history, `/user/${isAuthenticated().user._id}`)}>
+                                    {`${isAuthenticated().user.name}'s profile`}
+                                </Link>
+                            </a>
+
+                        </li>
+                        <li className='nav-item'>
+                            <span className='nav-link'
+                                style={isActive(history, '/signout'), { cursor: 'pointer', color: '#fff' }}
+                                onClick={() => signout(() => history.push('/'))}>Sign out</span>
+                        </li>
                     </>
                 )}
 

@@ -9,13 +9,14 @@ import Users from './user/Users'
 import UpdateProfile from './user/UpdateProfile'
 import FindPeople from './user/FindPeople'
 import PrivateRoute from './auth/privateRoutes'
-
+import NewPost from './post/NewPost'
 const MainRouter = () => {
     return (  
         <div>
             <Menu/>
             <Switch>
             <PrivateRoute path="/user/update/:userId" exact component={UpdateProfile}/>
+            <PrivateRoute path="/post/create" exact component={NewPost}/>
             <PrivateRoute path="/findpeople" exact component={FindPeople}/>
             <Route path="/users" exact component={Users}/>
             <Route path="/signup" exact component={Signup}/>

@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Posts from '../post/Posts'
 
 const Home = () => {
     return ( 
@@ -8,6 +8,9 @@ const Home = () => {
           <h1 className="display-4">Home</h1>
           <p className="lead">Welcome to Social Networking Application</p>
         </div>
+        <div className="container">
+          <Posts />
+          </div>
       </div>
      );
 }
