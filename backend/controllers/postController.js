@@ -9,10 +9,10 @@ const getPosts = (req, res) => {
 
     const post = Post.find()
         .populate('postedBy', '_id name')
-        .select('_id title body')
+        .select('_id title body created')
         .then(posts => {
 
-            res.json({ posts })
+            res.json( posts )
         })
         .catch(err => {
 

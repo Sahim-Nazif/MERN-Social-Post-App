@@ -25,4 +25,7 @@ router.put('/unfollow/:userId', requireSignin, removeFollowing, removeFollower)
 
 router.get('/findpeople/:userId', requireSignin,findPeople)
 router.param('userId', userById)
+
+
+
 module.exports=router;
