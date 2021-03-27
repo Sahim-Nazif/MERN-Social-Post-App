@@ -10,6 +10,7 @@ const getPosts = (req, res) => {
     const post = Post.find()
         .populate('postedBy', '_id name')
         .select('_id title body created')
+        .sort({created:-1})
         .then(posts => {
 
             res.json( posts )
@@ -136,6 +137,13 @@ const deletePost=(req, res)=>{
 }
 
 
+//get single post
+
+const single_post=(req, res)=>{
+
+    return res.json(req.post)
+}
+
 module.exports = {
 
     getPosts,
@@ -144,5 +152,6 @@ module.exports = {
     post_by_id,
     isPoster,
     deletePost,
-    update_post
+    update_post,
+    single_post
 }
