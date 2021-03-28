@@ -37,22 +37,22 @@ const Posts = () => {
                  
                     posts.map((post, index) => {
                     
-                            const posterId=post.postedBy ? post.postedBy._id : ""
+                            const posterId=post.postedBy ? `/user/${post.postedBy._id}` : ""
                             const posterName=post.postedBy ? post.postedBy.name : " Unknown"
                     return (
                             <div className="card col-md-3 mr-6 mt-2" key={index}>
                              
                                 <div className="card-body">
                                     <h5 className="card-title">{post.title}</h5>
-                                    <p className="card-text"> {post.body}</p>
+                                    <p className="card-text"> {post.body.substring(0,50)}</p>
 
                                 <br/>
                                 <p className='font-italic mark'>
-                                    posted by <Link to={`/user/${posterId}`}>{posterName}</Link>
+                                    posted by <Link to={`${posterId}`}>{posterName}</Link> {" "}
                                     on {new Date(post.created).toDateString()}
                                 </p>
 
-                                    <Link to={`/posts/${post._id}`} className="btn btn-raised btn-info btn-sm">Read more</Link>
+                                    <Link to={`/post/${post._id}`} className="btn btn-raised btn-info btn-sm">Read more</Link>
                         </div>
                         </div>
                         )

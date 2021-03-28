@@ -10,6 +10,10 @@ import UpdateProfile from './user/UpdateProfile'
 import FindPeople from './user/FindPeople'
 import PrivateRoute from './auth/privateRoutes'
 import NewPost from './post/NewPost'
+import SinglePost from './post/SinglePost'
+
+
+
 const MainRouter = () => {
     return (  
         <div>
@@ -18,6 +22,7 @@ const MainRouter = () => {
             <PrivateRoute path="/user/update/:userId" exact component={UpdateProfile}/>
             <PrivateRoute path="/post/create" exact component={NewPost}/>
             <PrivateRoute path="/findpeople" exact component={FindPeople}/>
+            <Route path="/post/:postId" exact component={SinglePost}/>
             <Route path="/users" exact component={Users}/>
             <Route path="/signup" exact component={Signup}/>
             <Route path='/signin' exact component={Signin}/>
